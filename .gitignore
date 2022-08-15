@@ -128,3 +128,9 @@ dmypy.json
 # Pyre type checker
 .pyre/
 *.\#*
+
+# MacOS junk
+.DS_Store
+
+#Idea IDE config
+/.idea
