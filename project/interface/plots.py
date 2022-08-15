@@ -10,10 +10,18 @@ def make_scatters(graph, model=None, size=50):
 
     if model is not None:
         colorscale = [[0, "#69bac9"], [1.0, "#ea8484"]]
+        # FIXME: z expects a 2d list of numbers of length size * size
+        #  but model() returns one number by default (as given in examples on the website)
+        #  - that is why the contour (a model cutoff visualization) does not work
+        # FIXME: had to change the model code so that it returns a list (see minitorch.github.io project directory)
         z = [
-            model([[j / (size + 1.0), k / (size + 1.0)] for j in range(size + 1)])
+            # FIXME: doc
+            # for each number in the range between 0 and N (a number of points in the graph)
+            # run a model function and give it as input a list of N tuples, where each tuple
+            [model([j / (size + 1.0), k / (size + 1.0)]) for j in range(size + 1)]
             for k in range(size + 1)
         ]
+
         scatters.append(
             go.Contour(
                 z=z,
@@ -67,7 +75,7 @@ def animate(self, models, names):
         dict(active=0, currentvalue={"prefix": "b="}, pad={"t": 50}, steps=steps)
     ]
 
-    fig = go.Figure(data=background + [points],)
+    fig = go.Figure(data=background + [points], )
     fig.update_layout(sliders=sliders)
 
     fig.update_layout(

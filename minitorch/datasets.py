@@ -1,5 +1,5 @@
-from dataclasses import dataclass
 import random
+from dataclasses import dataclass
 
 
 def make_pts(N):
@@ -18,13 +18,18 @@ class Graph:
     y: list
 
 
+# FIXME: doc
+# Current hypothesis – y is just a bit, signifying a label (i.e. whether the point is X or O)
 def simple(N):
+    # create a list of tuples of length N
     X = make_pts(N)
-    y = []
+    # y is a list of labels
+    labels = []
     for x_1, x_2 in X:
-        y1 = 1 if x_1 < 0.5 else 0
-        y.append(y1)
-    return Graph(N, X, y)
+        # if the point lies before the middle on the x-axis, it's an X, otherwise it's O
+        label = 1 if x_1 < 0.5 else 0
+        labels.append(label)
+    return Graph(N, X, labels)
 
 
 def diag(N):

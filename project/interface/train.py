@@ -2,10 +2,10 @@ import plotly.graph_objects as go
 import pandas as pd
 import time
 import streamlit as st
-import graph_builder
+from project import graph_builder
 import networkx as nx
 import minitorch
-import interface.plots as plots
+import plots as plots
 
 
 def render_train_interface(
